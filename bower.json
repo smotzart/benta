@@ -1,0 +1,25 @@
+{
+  "name": "benta",
+  "authors": [
+    "Kotsar Serhii <smotzart@yandex.ru>"
+  ],
+  "description": "benta website",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery-smooth-scroll": "^2.2.0",
+    "mixitup": "^3.2.1",
+    "jquery-form": "^4.2.2",
+    "angular-recaptcha": "^4.1.0",
+    "angular-loading-bar": "^0.9.0",
+    "angular-slick-carousel": "^3.1.7"
+  }
+}

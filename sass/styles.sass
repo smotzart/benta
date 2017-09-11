@@ -1,0 +1,205 @@
+@charset "UTF-8"
+
+@import compass/css3
+
+// Import custom Bootstrap variables
+@import bootstrap-variables
+
+// Import Bootstrap
+@import bootstrap-custom
+
+// or Import Bootstrap Flex
+// @import "bootstrap-flex";
+// or Import Bootstrap Grid
+// @import "bootstrap-grid";
+// or Import Bootstrap Reboot
+// @import "bootstrap-reboot";
+
+=placeholder_
+  &::-webkit-input-placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content
+
+.form-control
+  font:
+    size: 1.0625rem
+    family: $font-family-base
+  line-height: 1.25rem
+  +placeholder_
+    font:
+      weight: 300
+      style: italic
+
+.lead
+  line-height: 1.45
+
+html
+  font-size: 12px
+
+
++media-breakpoint-up(sm)
+  html
+    font-size: 14px
+
++media-breakpoint-up(md)
+  html
+    font-size: 16px
+
+.btn-outline-primary
+  &:focus,
+  &.focus
+    color: $blue
+    background: transparent
+    &:hover,
+    &.hover
+      background: $blue
+    &:active,
+    &.active,
+    &.mixitup-control-active
+      background: $blue
+
+  &:hover,
+  &.active,
+  &:active
+    color: $yellow
+    background: $blue
+
+#empty-list.collapsing
+  +transition(none)
+
+.nav-link
+  font-family: $font-family-monospace
+
+.navbar
+  border-bottom: 1px solid $gray-200
+
+.filter
+  &-title
+    font-size: 1.125rem
+  &-btns
+    .btn
+      padding: 0.563rem 1.773rem
+
+
+.product
+  &-detail
+    line-height: 2rem
+    h5
+      font-size: 1rem
+      line-height: 1.5
+
+
+.card
+  +box-shadow(0 0 10px 0 rgba($black, 0.16))
+  &-title
+    font-size: 1.375rem
+  &-footer
+    background: none
+    padding-top: 0.875rem
+  &-img-top
+    position: relative
+    height: 240px
+    overflow: hidden
+    > img
+      min-width: 100%
+      min-height: 100%
+      max-width: 110%
+      position: absolute
+      left: 50%
+      top: 50%
+      +translate(-50%, -50%)
+  &-img-label
+    position: absolute
+    right: 0
+    bottom: 0.5rem
+    background: $white
+    width: 8.4375rem
+    height: 3rem
+    padding: 0.5rem
+
+#loading-bar
+  .bar
+    background: $blue
+
+  .peg
+    +box-shadow($blue 1px 0 6px 1px)
+
+#loading-bar-spinner
+  .spinner-icon
+    border-top-color:  $blue
+    border-left-color: $blue
+
+.slim-prev,
+.slim-next
+  width: 44px
+  position: absolute
+  top: 50%
+  margin-top: -22px
+  left: $grid-gutter-width/2
+  z-index: $zindex-fixed
+  background: $white
+  cursor: pointer
+
+.slim-next
+  left: auto
+  right: $grid-gutter-width/2
+
++media-breakpoint-down(lg)
+  .card
+    &-img-top
+      height: 200px
+  
+  .navbar-expand-lg
+    > .container,
+    > .container-fluid
+      padding-left: $grid-gutter-width/2
+      padding-right: $grid-gutter-width/2
+
++media-breakpoint-down(sm)
+  .card
+    &-img-top
+      height: 160px
+
+  .btn-outline-primary
+    &:focus,
+    &.focus,
+      &:hover,
+      &.hover
+        background: transparent
+        color: $blue
+    &:hover,
+    &.hover
+      background: transparent
+      color: $blue
+    &:active,
+    &.active
+      background: $blue
+      color: $yellow
+      &:hover,
+      &.hover
+        background: $blue
+        color: $yellow
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    &:focus
+      box-shadow: none
+      
+
+
++media-breakpoint-down(xs)
+  .card
+    &-img-top
+      height: 120px
+  
+  .navbar-expand-lg
+    > .container,
+    > .container-fluid
+      padding-left: 0
+      padding-right: 0
