@@ -1,10 +1,18 @@
-<div class="container-fluid py-5 bg-light">
+<div class="container-fluid bg-light">
   <div class="row">              
     <div class="container">
-      <h2 class="text-uppercase mb-3 mb-sm-4 mb-md-5 mt-md-4 text-primary">Partnerschaft</h2>
       <div class="row">
-        <div class="col col-md-10 col-lg-8">
-          <p class="display-4 mb-5">Wir sind Ihr verlässlicher Partner zum Erwerb von hochqualitativen Produkten im Bereich Transport, wie LKW-Aufbauten und -Anhänger sowie Schmierstoffe.</p>
+        <div class="col-12 col-sm-12 col-md-8 py-5">
+          <h2 class="text-uppercase mb-3 mb-sm-4 mb-md-5 mt-md-4 text-primary">Partnerschaft</h2>
+          <p class="display-4 mb-md-5">Wir sind Ihr verlässlicher Partner zum Erwerb von hochqualitativen Produkten im Bereich Transport, wie LKW-Aufbauten und -Anhänger sowie Schmierstoffe.</p>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 pb-4">
+          <div class="row h-100 align-content-center">
+            <h6 class="text-uppercase col-12 text-center mb-4">Unsere<br>Vertretungen</h6> 
+            <div class="d-flex col-12 col-sm-4 col-md-12 align-items-center justify-content-center mb-4" ng-repeat="c in companies | orderBy:'order'">
+              <img ng-src="{{ c.inverse }}" alt="{{ c.title }}" class="img-fluid rounded">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +43,7 @@
 <div id="products" class="container mb-5 mb-md-6 mb-lg-8 pt-5">
   <h2 class="text-uppercase mb-3 mb-sm-4 mb-md-5 text-primary">Produkte</h2>
   <div class="row mb-5">
-    <div class="col-12 col-sm-auto mb-3">
+    <div class="col-12 col-md-auto mb-3">
       <h5 class="text-uppercase text-primary filter-title">Kategorien</h5>
 
       <div class="btn-toolbar filter-btns" role="toolbar" aria-label="Kategorien">
@@ -52,10 +60,10 @@
 
     </div>
 
-    <div class="col-12 col-sm-auto mb-3" ng-if="companies.length > 0">
+    <div class="col-12 col-md-auto mb-3" ng-if="companies.length > 0">
       <h5 class="text-uppercase text-primary filter-title">Hersteller</h5>
       <div class="btn-toolbar filter-btns" role="toolbar" aria-label="Hersteller">
-        <div class="btn-group mr-2" role="group" aria-label="Gergen group" ng-repeat="c in companies">
+        <div class="btn-group mr-2" role="group" aria-label="Gergen group" ng-repeat="c in companies | orderBy:'order'">
           <button type="button" ng-click="toggleFilter('company', c.key)" ng-class="{active: toggleClass('company', c.key)}" class="btn mb-2 btn-outline-primary">{{ c.title }}</button>
         </div>
       </div>
@@ -63,12 +71,12 @@
   </div>
 
   <div class="row card-deck" ng-if="products.length > 0">
-    <div class="col-12 col-sm-6 col-lg-4 mb-4 mb-md-5" ng-repeat="p in products | filter:filterProducts">
+    <div class="col-12 col-sm-6 col-lg-4 mb-4 mb-md-5" ng-repeat="p in products | filter:filterProducts | orderBy:'order'">
       <div class="card card-product h-100 mx-0">
         <div class="card-img-top">
-          <img ng-src="{{ p.images[0].file_small_url }}" alt="Card image cap">
-          <div class="card-img-label d-flex">
-            <img ng-src="{{ getLogo(p.company) }}" alt="" class="img-fluid align-self-center">
+          <a class="card-img-thumb" ng-href="/{{ p.id }}-{{ urlName(p.title) }}"><img ng-src="{{ p.images[0].file_small_url }}" alt="Card image cap"></a>
+          <div class="card-img-label">
+            <img ng-src="{{ getLogo(p.company) }}" alt="" class="img-fluid">
           </div>
         </div>
         <div class="card-body pt-4">
@@ -82,10 +90,10 @@
     </div>
   </div>
 
-  <div class="row justify-content-center" ng-if="products.length == 0">
+  <div class="row justify-content-center" ng-if="(products | filter:filterProducts).length == 0 ">
     <div class="col col-sm-8 col-md-6">
-      <div id="empty-list" class="alert alert-warning text-center" role="alert">
-        No items could be found matching the requested filter
+      <div id="empty-list" class="alert alert-light bg-light text-center" role="alert">
+        Keine passenden Produkte zu Ihrer Auswahl gefunden
       </div>
     </div>
   </div>
@@ -93,19 +101,6 @@
   <div class="row d-none">
     <div class="col d-flex justify-content-center">
       <button type="button" class="btn btn-outline-secondary btn-sm col-12 col-sm-8" disabled>mehr laden</button>
-    </div>
-  </div>
-</div>
-
-<div class="container mb-5 mb-md-6 mb-lg-8">
-  <div class="row">
-    <div class="col">
-      <h2 class="text-uppercase mb-3 mb-sm-4 mb-md-5 text-primary">Vertretungen</h2>
-      <div class="row align-items-center">
-        <div class="col-6 col-md-4 col-lg-auto mb-3 mb-md-2" ng-repeat="c in companies">
-          <img ng-src="{{ c.logo }}" alt="{{ c.title }}" class="img-fluid rounded">
-        </div>
-      </div>
     </div>
   </div>
 </div>

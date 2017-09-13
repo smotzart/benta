@@ -39,16 +39,9 @@
   line-height: 1.45
 
 html
-  font-size: 12px
+  font-size: 14px
 
 
-+media-breakpoint-up(sm)
-  html
-    font-size: 14px
-
-+media-breakpoint-up(md)
-  html
-    font-size: 16px
 
 .btn-outline-primary
   &:focus,
@@ -83,7 +76,7 @@ html
     font-size: 1.125rem
   &-btns
     .btn
-      padding: 0.563rem 1.773rem
+      padding: 0.563rem 1.373rem
 
 
 .product
@@ -105,7 +98,12 @@ html
     position: relative
     height: 240px
     overflow: hidden
-    > img
+    a
+      display: block
+  &-img-thumb
+    height: 100%
+    width: 100%
+    img
       min-width: 100%
       min-height: 100%
       max-width: 110%
@@ -121,6 +119,10 @@ html
     width: 8.4375rem
     height: 3rem
     padding: 0.5rem
+    img
+      position: relative
+      top: 50%
+      +translateY(-50%)
 
 #loading-bar
   .bar
@@ -133,6 +135,7 @@ html
   .spinner-icon
     border-top-color:  $blue
     border-left-color: $blue
+
 
 .slim-prev,
 .slim-next
@@ -148,6 +151,30 @@ html
 .slim-next
   left: auto
   right: $grid-gutter-width/2
+
+.info-list
+  > li
+    display: block
+    position: relative
+    padding-left: 1rem
+    margin: 0 0 .5rem
+    &:last-child
+      margin: 0
+    > a
+      display: block
+      line-height: 1.2rem
+    &:before
+      content: "›"
+      display: block
+      position: absolute
+      left: 0
+      top: 0
+      line-height: 1.2rem
+
+.product-content
+  ul,
+  ol
+    padding-left: 1.2rem
 
 +media-breakpoint-down(lg)
   .card
@@ -203,3 +230,12 @@ html
     > .container-fluid
       padding-left: 0
       padding-right: 0
+
+
++media-breakpoint-up(sm)
+  html
+    font-size: 15px
+
++media-breakpoint-up(md)
+  html
+    font-size: 16px

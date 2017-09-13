@@ -22,6 +22,7 @@
     <meta name="apple-mobile-web-app-title" content="BENTA">
     <meta name="application-name" content="BENTA">
     <meta name="theme-color" content="#ffffff">
+    <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
   </head>
 
   <body>
@@ -65,43 +66,38 @@
                   <div class="row">
                     <div class="form-group col-12 col-sm-6">
                       <label class="text-uppercase" for="contact_name">Name</label>
-                      <input type="text" name="contact[name]" ng-model="contact.name" id="contact_name" class="form-control" ng-required placeholder="Name (bitte ausfüllen)">
+                      <input type="text" name="contact_name" ng-class="{'is-invalid': contactform.contact_name.$invalid && contactform.contact_name.$dirty}" ng-model="contact.name" id="contact_name" class="form-control" ng-required="true" placeholder="Name (bitte ausfüllen)">
+                      <div class="invalid-feedback">
+                        Please provide a valid Name
+                      </div>
                     </div>
                     <div class="form-group col-12 col-sm-6">
                       <label class="text-uppercase" for="contact_email">E-Mail</label>
-                      <input type="email" name="contact[email]" ng-model="contact.email" id="contact_email" class="form-control" ng-required placeholder="E-Mail (bitte ausfüllen)">
+                      <input type="email" name="contact_email" ng-class="{'is-invalid': contactform.contact_email.$invalid && contactform.contact_email.$dirty}" ng-model="contact.email" id="contact_email" class="form-control" ng-required="true" placeholder="E-Mail (bitte ausfüllen)">
+                      <div class="invalid-feedback">
+                        Please provide a valid E-Mail address
+                      </div>
                     </div>
                     <div class="form-group col-12">
                       <label class="text-uppercase" for="contact_message">Ihre Nachricht</label>
-                      <textarea class="form-control" name="contact[message]" ng-model="contact.message" id="contact_message" rows="5" placeholder="Ihre Nachricht"></textarea>
+                      <textarea class="form-control" name="contact_message" ng-model="contact.message" id="contact_message" rows="5" placeholder="Ihre Nachricht"></textarea>
                     </div>
                   </div>
                   <div class="row align-items-md-center">
                     <div class="form-group col-12 col-sm-12 col-lg-5">
-                      <div vc-recaptcha theme="'light'" key="capcha" on-success="contact.response = response"></div>
+                      <div vc-recaptcha theme="'light'" key="capcha" on-success="contact.response = response" on-create="setWidgetId(widgetId)"></div>
                     </div>
                     <div class="form-group col-12 col-sm-6 ml-sm-auto col-lg-4">
                       <button type="submit" ng-click="sendContact()" ng-disabled="contactform.$invalid || loadContact" class="btn btn-block btn-outline-primary">Anfrage senden</button>
                     </div>
                   </div>   
                 </form>
-              </div>
-              <div class="col-12 col-md-3 d-md-flex">
-                <div class="row align-self-md-center">
-                  <div class="col-12 col-sm-6 col-md-12 d-flex justify-content-center">
-                    <address>
-                      <strong>Markus Schmid</strong><br>
-                      <a class="text-dark" href="tel:+43660123543">+43 660 123543</a><br>
-                      <a class="text-dark" href="mailto:ms@benta.at?subject=Interesse? - benta.at">ms@benta.at</a>
-                    </address>
-                  </div>
-                  <div class="col-12 col-sm-6 col-md-12 d-flex justify-content-center">
-                    <address>
-                      <strong>Markus Weber</strong><br>
-                      <a class="text-dark" href="tel:+43 60 579266">+43 660 7579266</a><br>
-                      <a class="text-dark" href="mailto:mw@benta.at?subject=Interesse? - benta.at">mw@benta.at</a>
-                    </address>
-                  </div>
+                <div class="alert alert-dismissible" ng-if="formShow" ng-class="{'alert-success': formStatus, 'alert-danger': !formStatus}" role="alert">
+                  <button type="button" class="close" ng-click="hideAlert()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="alert-heading">{{ formHeding }}</h4>
+                  <p ng-bind-html="formMessage" class="mb-0"></p>
                 </div>
               </div>
             </div>
@@ -125,7 +121,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
     <script src="bower_components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
     <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
     <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>

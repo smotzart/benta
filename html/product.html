@@ -6,9 +6,9 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-8 col-lg-9 mb-5">
-          <slick settings="slickConfig" ng-if="allowslick">
-            <div class="slide" ng-repeat="i in product.images">
-              <img class="d-block w-100" ng-src="{{ i.file_small_url }}" alt="{{ i.file_name }}">
+          <slick settings="slickConfig" ng-if="allowslick" class="bg-light">
+            <div class="slide d-inline-flex align-items-center" ng-repeat="i in product.images">
+              <img class="d-block w-100" ng-src="{{ i.file_large_url }}" alt="{{ i.file_name }}">
             </div>
           </slick>
           <div id="slick"></div>
@@ -20,8 +20,8 @@
             </div>
             <div class="col-12 align-self-end product-detail" ng-if="n_links.length > 0">
               <h5 class="text-uppercase mb-3">Weitere<br>Informationen</h5>
-              <ul class="list-unstyled m-0">
-                <li ng-repeat="l in n_links">› <a target="_blank" ng-href="{{ l.href }}">{{ l.title }}</a></li>
+              <ul class="list-unstyled m-0 info-list">
+                <li ng-repeat="l in n_links"><a target="_blank" ng-href="{{ l.href }}">{{ l.title }}</a></li>
               </ul>
             </div>
           </div>
@@ -41,9 +41,9 @@
         <div class="col-12 col-sm-6 col-lg-4 mb-4 mb-md-5" ng-repeat="p in products">
           <div class="card card-product h-100 mx-0">
             <div class="card-img-top">
-              <img ng-src="{{ p.images[0].file_small_url }}" alt="Card image cap">
-              <div class="card-img-label d-flex">
-                <img ng-src="{{ getLogo(p.company) }}" alt="" class="img-fluid align-self-center">
+              <a class="card-img-thumb" ng-href="/{{ p.id }}-{{ urlName(p.title) }}"><img ng-src="{{ p.images[0].file_small_url }}" alt="Card image cap"></a>
+              <div class="card-img-label">
+                <img ng-src="{{ getLogo(p.company) }}" alt="" class="img-fluid">
               </div>
             </div>
             <div class="card-body pt-4">

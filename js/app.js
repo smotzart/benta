@@ -49,8 +49,10 @@
           c = data[j];
           results.push({
             key: c.key,
+            order: c.order,
             title: c.title,
-            logo: c.logo[0].file_small_url
+            logo: c.logo[0].file_small_url,
+            inverse: c.inverse[0].file_small_url
           });
         }
         return self.companies = results;
@@ -78,23 +80,45 @@
           message: ''
         });
       })();
+      self.widgetContact = null;
+      self.setWidgetId = function(widgetId) {
+        return self.widgetContact = widgetId;
+      };
+      self.formShow = false;
+      self.formMessage = '';
+      self.formStatus = true;
       self.loadContact = false;
-      return self.sendContact = function() {
+      self.sendContact = function() {
         self.loadContact = true;
         return self.contact.$save({}, (function(data) {
+          self.formShow = true;
           self.loadContact = false;
           self.resetContact();
-          return vcRecaptchaService.reload();
-        }), (function() {
-          return self.loadContact = false;
+          self.formStatus = true;
+          self.formHeding = 'Danke!';
+          self.formMessage = 'Ihre Nachricht wurde erfolgreich versendet. Wir werden uns in Kürze bei Ihnen Melden.';
+          return vcRecaptchaService.reload(self.widgetContact);
+        }), (function(data) {
+          self.formShow = true;
+          self.formStatus = false;
+          self.formHeding = 'Error!';
+          self.formMessage = data.data;
+          self.loadContact = false;
+          return vcRecaptchaService.reload(self.widgetContact);
         }));
+      };
+      return self.hideAlert = function() {
+        return self.formShow = false;
       };
     }
   ]).controller('ProductsCtrl', [
     '$scope', 'APIProducts', 'APICompanies', function(self, APIProducts, APICompanies) {
       var filter;
       APIProducts.query({}, function(data) {
-        return self.products = data;
+        return self.products = data.map(function(x) {
+          x.order = parseInt(x.order, 10);
+          return x;
+        });
       });
       filter = {
         category: [],
@@ -102,11 +126,10 @@
       };
       self.toggleFilter = function(key, value) {
         if (filter[key].indexOf(value) === -1) {
-          filter[key].push(value);
+          return filter[key].push(value);
         } else {
-          filter[key].splice(filter[key].indexOf(value), 1);
+          return filter[key].splice(filter[key].indexOf(value), 1);
         }
-        return console.log(filter[key]);
       };
       self.toggleClass = function(key, value) {
         if (filter[key].indexOf(value) === -1) {
@@ -118,8 +141,21 @@
         if (filter.category.length === 0 && filter.company.length === 0) {
           return true;
         }
-        if (filter.category.indexOf(item.category) !== -1 || filter.company.indexOf(item.company) !== -1) {
-          return true;
+        if (filter.category.length > 0 && filter.company.length > 0) {
+          if (filter.category.indexOf(item.category) !== -1 && filter.company.indexOf(item.company) !== -1) {
+            return true;
+          }
+          return false;
+        }
+        if (filter.category.length > 0) {
+          if (filter.category.indexOf(item.category) !== -1) {
+            return true;
+          }
+        }
+        if (filter.company.length > 0) {
+          if (filter.company.indexOf(item.company) !== -1) {
+            return true;
+          }
         }
         return false;
       };
@@ -145,13 +181,11 @@
           for (j = 0, len = links.length; j < len; j++) {
             link = links[j];
             link = link.split("|");
-            if (link.length === 2) {
-              self.n_links.push({
-                title: link[0],
-                href: link[1],
-                type: 'link'
-              });
-            }
+            self.n_links.push({
+              title: link[0],
+              href: link.length === 2 ? link[1] : link[0],
+              type: 'link'
+            });
           }
         }
         for (i = k = 1; k <= 5; i = ++k) {
@@ -174,7 +208,7 @@
         slidesToScroll: 1,
         arrows: true,
         useTransform: false,
-        adaptiveHeight: true,
+        adaptiveHeight: false,
         prevArrow: '<span class="slim-prev btn btn-block btn-outline-primary">‹</span>',
         nextArrow: '<span class="slim-next btn btn-block btn-outline-primary">›</span>'
       };

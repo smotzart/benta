@@ -200,6 +200,7 @@
                 reload: function (widgetId) {
                     validateRecaptchaInstance();
 
+console.log(recaptcha);
                     recaptcha.reset(widgetId);
 
                     // Let everyone know this widget has been reset.

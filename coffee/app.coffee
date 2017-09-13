@@ -19,7 +19,6 @@ angular.module('app', [
   .factory('APICompanies',  ['$resource', ($resource) -> $resource 'https://kernl.rocks/api/v2/public/entries.json?storage_id=27'])
   .factory('APIContact',  ['$resource', ($resource) -> $resource '/misc/contact.php'])
 
-
   .run([
     '$rootScope',
   ].append (root) ->  
@@ -51,13 +50,17 @@ angular.module('app', [
     
     self.capcha = '6Ld89C8UAAAAAKARpvwzC2nhwKuCayqtd4n5000A'
 
+    #console.log vcRecaptchaService.render()
+
     self.companies = APICompanies.query {}, (data) ->
       results = []
       for c in data
         results.push(
           key: c.key
+          order: c.order
           title: c.title
           logo: c.logo[0].file_small_url
+          inverse: c.inverse[0].file_small_url
         )      
       self.companies = results
 
@@ -80,22 +83,45 @@ angular.module('app', [
         message: ''
     )()
 
+
+    self.widgetContact = null
+
+    self.setWidgetId = (widgetId) ->
+      self.widgetContact = widgetId
+
+    self.formShow = false
+    self.formMessage = ''
+    self.formStatus = true
     self.loadContact = false
     self.sendContact = ->
       self.loadContact = true
       self.contact.$save {},((data) ->
+        self.formShow = true
         self.loadContact = false
         self.resetContact()
-        vcRecaptchaService.reload()
-      ),(->
+        self.formStatus = true
+        self.formHeding = 'Danke!'
+        self.formMessage = 'Ihre Nachricht wurde erfolgreich versendet. Wir werden uns in Kürze bei Ihnen Melden.'
+        vcRecaptchaService.reload(self.widgetContact)
+      ), ((data)->
+        self.formShow = true
+        self.formStatus = false
+        self.formHeding = 'Error!'
+        self.formMessage = data.data
         self.loadContact = false
+        vcRecaptchaService.reload(self.widgetContact)
       )        
+
+    self.hideAlert = ->
+      self.formShow = false
 
   ])
 
   .controller('ProductsCtrl', ['$scope', 'APIProducts', 'APICompanies', (self, APIProducts, APICompanies) ->
     APIProducts.query {}, (data) ->
-      self.products = data    
+      self.products = data.map (x) ->
+        x.order = parseInt(x.order, 10)
+        return x
 
     filter = 
       category: []
@@ -106,7 +132,6 @@ angular.module('app', [
         filter[key].push(value)
       else
         filter[key].splice(filter[key].indexOf(value), 1)
-      console.log filter[key]
 
     self.toggleClass = (key, value) ->
       return false if filter[key].indexOf(value) == -1
@@ -114,7 +139,14 @@ angular.module('app', [
 
     self.filterProducts = (item) ->
       return true if filter.category.length == 0 && filter.company.length == 0
-      return true if filter.category.indexOf(item.category) != -1 || filter.company.indexOf(item.company) != -1
+
+      if filter.category.length > 0 && filter.company.length > 0
+        return true if filter.category.indexOf(item.category) != -1 && filter.company.indexOf(item.company) != -1
+        return false
+      if filter.category.length > 0
+        return true if filter.category.indexOf(item.category) != -1
+      if filter.company.length > 0
+        return true if filter.company.indexOf(item.company) != -1
       return false
 
   ])
@@ -135,11 +167,11 @@ angular.module('app', [
         links = data.links.split("\n")
         for link in links
           link = link.split("|")
-          if link.length == 2
-            self.n_links.push
-              title: link[0]
-              href: link[1]
-              type: 'link'
+          self.n_links.push
+            title: link[0]
+            href: if link.length == 2 then link[1] else link[0]
+            type: 'link'
+
 
       for i in [1..5]
         if self.product["file#{i}"].length > 0
@@ -159,7 +191,7 @@ angular.module('app', [
       slidesToScroll: 1
       arrows: true
       useTransform: false
-      adaptiveHeight: true
+      adaptiveHeight: false
       prevArrow: '<span class="slim-prev btn btn-block btn-outline-primary">‹</span>'
       nextArrow: '<span class="slim-next btn btn-block btn-outline-primary">›</span>'
 
