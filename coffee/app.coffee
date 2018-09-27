@@ -173,7 +173,7 @@ angular.module('app', [
             type: 'link'
 
 
-      for i in [1..5]
+      for i in [1..10]
         if self.product["file#{i}"].length > 0
           self.n_links.push
             title: if self.product["file#{i}text"] then self.product["file#{i}text"] else self.product["file#{i}"][0].file_name

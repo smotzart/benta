@@ -188,7 +188,7 @@
             });
           }
         }
-        for (i = k = 1; k <= 5; i = ++k) {
+        for (i = k = 1; k <= 10; i = ++k) {
           if (self.product["file" + i].length > 0) {
             self.n_links.push({
               title: self.product["file" + i + "text"] ? self.product["file" + i + "text"] : self.product["file" + i][0].file_name,

@@ -2,16 +2,14 @@
   <div class="row">              
     <div class="container">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-8 py-5">
+        <div class="col-12 col-sm-12 col-lg-6 py-5">
           <h2 class="text-uppercase mb-3 mb-sm-4 mb-md-5 mt-md-4 text-primary">Partnerschaft</h2>
-          <p class="display-4 mb-md-5">Wir sind Ihr verlässlicher Partner zum Erwerb von hochqualitativen Produkten im Bereich Transport, wie LKW-Aufbauten und -Anhänger sowie Schmierstoffe.</p>
+          <p class="display-4 mb-md-5">Mehr als „nur“ eine Partnerschaft – für uns stehen Ihre Anliegen immer an erster Stelle</p>
         </div>
-        <div class="col-12 col-sm-12 col-md-4 pb-4">
-          <div class="row h-100 align-content-center">
-            <h6 class="text-uppercase col-12 text-center mb-4">Unsere<br>Vertretungen</h6> 
-            <div class="d-flex col-12 col-sm-4 col-md-12 align-items-center justify-content-center mb-4" ng-repeat="c in companies | orderBy:'order'">
-              <img ng-src="{{ c.inverse }}" alt="{{ c.title }}" class="img-fluid rounded">
-            </div>
+        <div class="col-12 col-sm-12 col-lg-4 d-flex justify-content-center align-items-center pb-5 pb-lg-0 px-0 ml-lg-auto">
+          <div class="text-center p-3 p-lg-4 border rounded border-primary m-0 h3">
+            <span class="d-block text-uppercase mb-2">24-Stunden Hotline</span>
+            <a href="tel:+436603945512">+43 660 3945512</a>
           </div>
         </div>
       </div>
@@ -25,42 +23,58 @@
       <div class="row text-white">
         <div class="col-12 col-md-4 mb-4 mb-md-0">
           <h4 class="text-uppercase text-warning mb-3">Nähe</h4>
-          <p class="lead mb-0 mb-md-3">Die Nähe zu Ihnen, unseren Kunden und der verlässliche Service stehen für uns an erster Stelle.</p>
+          <p class="lead mb-0 mb-md-3">Unsere Kunden schätzen unsere zuverlässige Beratung und den Support</p>
         </div>
         <div class="col-12 col-md-4 mb-4 mb-md-0">
           <h4 class="text-uppercase text-warning mb-3">Qualität</h4>
-          <p class="lead mb-0 mb-md-3">Produkte von höchster Qualität zu finden, die optimal zu Ihren Anwendungen passen ist unsere Priorität.</p>
+          <p class="lead mb-0 mb-md-3">Unser Anspruch ist Kundenbetreuung auf höchstem Qualitätsniveau</p>
         </div>
         <div class="col-12 col-md-4">
           <h4 class="text-uppercase text-warning mb-3">ERFAHRUNG</h4>
-          <p class="lead mb-0 mb-md-3">Wir haben mehr als 40 Jahre Erfahrung  im weltweiten Vertrieb hochwertiger Investitionsgüter und Waren.</p>
+          <p class="lead mb-0 mb-md-3">Aufgrund unserer Erfahrung sind wir kompetenter und zuverlässiger Partner für unsere Kunden</p>
         </div>
       </div>
     </div>
   </div>  
 </div>
 
+
 <div id="products" class="container mb-5 mb-md-6 mb-lg-8 pt-5">
   <h2 class="text-uppercase mb-3 mb-sm-4 mb-md-5 text-primary">Produkte</h2>
-  <div class="row mb-5">
-    <div class="col-12 col-md-auto mb-3">
+  <div class="row mb-5 d-none">
+    <div class="col-12 col-md-12 col-lg-8 mb-3">
       <h5 class="text-uppercase text-primary filter-title">Kategorien</h5>
 
       <div class="btn-toolbar filter-btns" role="toolbar" aria-label="Kategorien">
-        <div class="btn-group mr-2" role="group" aria-label="Aufbauten group">
-          <button type="button" ng-click="toggleFilter('category', 'bodies')" ng-class="{active: toggleClass('category', 'bodies')}" class="btn mb-2 text-uppercase btn-outline-primary">Aufbauten</button>
+        <div class="btn-group mr-2" role="group" aria-label="Reparatur group">
+          <button type="button" ng-click="toggleFilter('category', 'repair')" ng-class="{active: toggleClass('category', 'repair')}" class="btn mb-2 text-uppercase btn-outline-primary">Reparatur</button>
         </div>
-        <div class="btn-group mr-2" role="group" aria-label="Anhänger group">
-          <button type="button" ng-click="toggleFilter('category', 'trailers')" ng-class="{active: toggleClass('category', 'trailers')}" class="btn mb-2 text-uppercase btn-outline-primary">Anhänger</button>
+        <div class="btn-group mr-2" role="group" aria-label="Instandhaltung group">
+          <button type="button" ng-click="toggleFilter('category', 'maintenance')" ng-class="{active: toggleClass('category', 'maintenance')}" class="btn mb-2 text-uppercase btn-outline-primary">Instandhaltung</button>
         </div>
-        <div class="btn-group" role="group" aria-label="Schmierstoffe group">
-          <button type="button" ng-click="toggleFilter('category', 'lubricants')" ng-class="{active: toggleClass('category', 'lubricants')}" class="btn mb-2 text-uppercase btn-outline-primary">Schmierstoffe</button>
+        <div class="btn-group mr-2" role="group" aria-label="Condition Monitoring group">
+          <button type="button" ng-click="toggleFilter('category', 'condition_monitoring')" ng-class="{active: toggleClass('category', 'condition_monitoring')}" class="btn mb-2 text-uppercase btn-outline-primary">Condition Monitoring</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Verbindungstechnik group">
+          <button type="button" ng-click="toggleFilter('category', 'coupling')" ng-class="{active: toggleClass('category', 'coupling')}" class="btn mb-2 text-uppercase btn-outline-primary">Verbindungstechnik</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Antriebsauslegung group">
+          <button type="button" ng-click="toggleFilter('category', 'drive_systems')" ng-class="{active: toggleClass('category', 'drive_systems')}" class="btn mb-2 text-uppercase btn-outline-primary">Antriebsauslegung</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Befundung group">
+          <button type="button" ng-click="toggleFilter('category', 'reporting')" ng-class="{active: toggleClass('category', 'reporting')}" class="btn mb-2 text-uppercase btn-outline-primary">Befundung</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Transport- und Maschinenüberwachung group">
+          <button type="button" ng-click="toggleFilter('category', 'machine_testing')" ng-class="{active: toggleClass('category', 'machine_testing')}" class="btn mb-2 text-uppercase btn-outline-primary">Transport- und Maschinenüberwachung</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Schmiermittel group">
+          <button type="button" ng-click="toggleFilter('category', 'lubricants')" ng-class="{active: toggleClass('category', 'lubricants')}" class="btn mb-2 text-uppercase btn-outline-primary">Schmiermittel</button>
         </div>
       </div>
 
     </div>
 
-    <div class="col-12 col-md-auto mb-3" ng-if="companies.length > 0">
+    <div class="col-12 col-md-12 col-lg-auto mb-3" ng-if="companies.length > 0">
       <h5 class="text-uppercase text-primary filter-title">Hersteller</h5>
       <div class="btn-toolbar filter-btns" role="toolbar" aria-label="Hersteller">
         <div class="btn-group mr-2" role="group" aria-label="Gergen group" ng-repeat="c in companies | orderBy:'order'">
@@ -75,7 +89,7 @@
       <div class="card card-product h-100 mx-0">
         <div class="card-img-top">
           <a class="card-img-thumb" ng-href="/{{ p.id }}-{{ urlName(p.title) }}"><img ng-src="{{ p.images[0].file_small_url }}" alt="Card image cap"></a>
-          <div class="card-img-label">
+          <div class="card-img-label d-flex align-items-center">
             <img ng-src="{{ getLogo(p.company) }}" alt="" class="img-fluid">
           </div>
         </div>
